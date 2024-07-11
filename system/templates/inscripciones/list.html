@@ -1,0 +1,31 @@
+{% extends 'administrador/list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 40%;">Nombre Completo</th>
+        <th scope="col" style="width: 20%;">Telefono</th>
+        <th scope="col" style="width: 20%;">Curso</th>
+        <th scope="col" style="width: 10%;">Opciones</th>
+        
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for a in object_list %}
+    <tr>
+        <td> {{ a.nombre_ins }} {{ a.apellidos_ins }} </td>
+        <td> {{ a.telefono }} </td>
+        <td> {{ a.curso_id }} </td>
+
+        <td>
+            <a href="{% url 'inscripciones_update' a.id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'inscripciones_delete' a.id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+            <button class="open-modal btn btn-primary btn-xs" data-url="{% url 'inscripciones_detail' a.id %}"><i class="fas fa-eye"></i></button>
+
+        </td>
+    </tr>
+    {% endfor %}
+
+    {% include "inscripciones/inscripcion-detail.html" %}
+
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "sitioweb/index.html" %}
+{% block title %}Detalle Curso{% endblock  %}
+{% load static %}
+{% block content %}
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url({% static "lib/website-v1/assets/img/breadcrumbs-bg.jpg" %});">
+      <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+
+        <h2>Detalle Curso</h2>
+        <ol>
+          <li><a href="{% url "curso-list" %}">Cursos</a></li>
+          <li>Detalle Curso</li>
+        </ol>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Details Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row g-5">
+
+          <div class="col-lg-8">
+
+            <article class="blog-details">
+
+              <div class="post-img">
+                <img src="{{ curso.get_image }}" alt="" class="img-fluid">
+              </div>
+
+              <h2 class="title"> {{ curso.nombre_curso }} </h2>
+
+              <div class="meta-top">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#" title="Docente del curso"> {{ curso.capacitador_id.nombre_capacitador }} </a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-calendar2-check"></i> <a href="#" title="Inicio de clases" ><time datetime="2020-01-01">{{ curso.fecha_de_inicio }}</time></a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-currency-dollar"></i> <a href="#" title="Costo del curso" > {{ curso.costo }} </a></li>
+                </ul>
+              </div><!-- End meta top -->
+
+              <div class="content">
+                <p style="text-align: justify;">
+                  {{ curso.descripcion | safe }}
+                </p>
+
+              </div><!-- End post content -->
+
+            </article><!-- End blog post -->
+
+            <div class="post-author d-flex align-items-center">
+              <img src="{{ curso.capacitador_id.get_image }}" class="rounded-circle flex-shrink-0" alt="">
+              <div>
+                <h4>{{ curso.capacitador_id.nombre_capacitador }} {{ curso.capacitador_id.apellidos_capacitador }}</h4>
+                <div class="social-links">
+                  <a href="#">{{ curso.capacitador_id.grado_academico }}</a>
+                </div>
+                <p>
+                  {{ curso.capacitador_id.descripcion_c | safe }}
+                </p>
+              </div>
+            </div><!-- End post author -->
+
+            <div class="comments">
+              <a  class="inscribirse-btn" href="{% url "inscripciones-cursos" %}"> Inscribete YA!</a>              
+
+            </div><!-- End blog comments -->
+
+          </div>
+
+          <div class="col-lg-4">
+
+            <div class="sidebar">
+
+              
+              <div class="sidebar-item categories">
+                <h3 class="sidebar-title">Información adicional</h3>
+                <ul class="mt-3">
+                  <h3 style="font-wight: bold; font-size:15px;"> Horario:</h3><li class="bi bi-clock" style="color:#fe3b00;">  <a> {{ curso.horario }} </a></li>       
+                  <h3 style="font-wight: bold; font-size:15px; padding-top:7px;"> Duración:</h3><li class="bi bi-hourglass" style="color:#fe3b00;"><a> {{ curso.duracion }} </a></li>
+                  <h3 style="font-wight: bold; font-size:15px; padding-top:7px;"> Temario:</h3><a href="{{ curso.get_document }}" target="_blank"><li class="bi bi-download" style="color:#fe3b00;"> </li></a>
+                </ul>
+              </div><!-- End sidebar categories-->
+
+              <div class="sidebar-item recent-posts">
+                <h3 class="sidebar-title">Otros cursos</h3>
+
+                <div class="mt-3">
+                  {% for c in cursos  %}
+                  <div class="post-item mt-3">
+                    <img src="{{ c.get_image }}" alt="">
+                    <div>
+                      <h4><a href="{% url 'detail-curso' c.id %}"> {{ c.nombre_curso }} </a></h4>
+                      <time datetime="2020-01-01"> {{ c.fecha_de_inicio }} </time>
+                    </div>
+                  </div><!-- End recent post item-->
+                  {% endfor %}
+                </div>
+
+              </div><!-- End sidebar recent posts-->
+            </div>
+              
+
+            </div><!-- End Blog Sidebar -->
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Blog Details Section -->
+
+  </main><!-- End #main -->
+
+{% endblock %}
+

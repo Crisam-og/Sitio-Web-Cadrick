@@ -1,0 +1,45 @@
+{% extends 'administrador/list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 40%;">Titulo</th>
+       
+        <th scope="col" style="width: 20%;">Nombre del Boton</th>
+        <th scope="col" style="width: 20%;">Url</th>
+        <th scope="col" style="width: 20%;">Imagen</th>
+        <th scope="col" style="width: 20%;">Estado</th>
+        <th scope="col" style="width: 10%;">Opciones</th>
+        
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for p in object_list %}
+    <tr>
+        <td> {{ p.titulo }} </td>
+        
+        <td> {{ p.nombre_boton }} </td>
+        <td> {{ p.url_boton }} </td>
+        {% for image in existing_images %}
+
+        <td class="text-center"> <img src="{{ image.get_image }}" class="img-thumbnail" alt="Imagen del servicio" height="100" width="100"> </td>  
+        {% endfor %}
+        <td>
+            {% if p.estado == True %}
+                <span class="badge badge-success">Activo</span>
+            {% else %}
+                <span class="badge badge-danger">Inactivo</span>
+            {% endif %}
+        </td>
+
+        
+
+
+        <td>
+            <a href="{% url 'publicidad_update' p.id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'publicidad_delete' p.id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}

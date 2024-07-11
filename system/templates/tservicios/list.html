@@ -1,0 +1,23 @@
+{% extends 'administrador/list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 5%;">Nombre</th>
+
+        <th scope="col" style="width: 5%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for a in object_list %}
+    <tr>
+        <td> {{ a.nombre_tipo_servicio }} </td>
+        <td>
+
+            <a href="{% url 'tservicios_update' a.id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'tservicios_delete' a.id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>   
+    </tr>
+    {% endfor %}
+{% endblock %}

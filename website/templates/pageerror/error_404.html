@@ -1,0 +1,38 @@
+{% extends "sitioweb/index.html" %}
+{% block title %}Error 404{% endblock  %}
+{% load static %}
+{% block content %}
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url( {% static "lib/website-v1/assets/img/breadcrumbs-bg.jpg" %});">
+        <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+  
+          <h2>Error 404</h2>
+          <ol>
+            <li><a href="{{ index }}">Inicio</a></li>
+            <li>Error 404</li>
+          </ol>
+  
+        </div>
+      </div><!-- End Breadcrumbs -->
+      
+      <section id="pagerror" class="pagerror">
+        <div class="container" data-aos="fade-up">
+  
+          <div class="row position-relative">
+    
+            
+              <h1> Oops! Page Not Found </h1>
+             
+              
+                <p> The page you're looking for doesn't exist. Let's get you back on track </p>
+                <a href="{% url "index" %}" style="text-decoration: none; color: #ff5733;">Go to Homepage</a>
+              
+            </div>
+            
+          </div>
+  
+        
+      </section>
+</main>
+{% endblock %}

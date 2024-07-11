@@ -1,0 +1,31 @@
+<!-- ======= Testimonials Section ======= -->
+<section id="testimonials" class="testimonials section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-header">
+        <h2> {{ titleClients }} </h2>
+        <p>{{ publicidad.sub_section_clientes }}</p>
+      </div>
+
+      <div class="slides-2 swiper">
+        <div class="swiper-wrapper">
+            {% for c in client %}
+          <div class="swiper-slide">
+            
+            <div class="testimonial-wrap" style="box-shadow: none !important;">
+              <div class="testimonial-item" style="box-shadow: none !important;">
+                <img src="{{ c.get_image }}" class="testimonial-img" alt="">
+                <h3> {{ c.nombre_cliente }} </h3>
+                            
+              </div>              
+            </div>          
+          </div><!-- End testimonial item -->
+          {% endfor %}
+          
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+  </section><!-- End Testimonials Section -->

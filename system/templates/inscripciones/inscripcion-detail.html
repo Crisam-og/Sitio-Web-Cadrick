@@ -1,0 +1,139 @@
+<div class="modal fade" id="inscripcion-detail-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="inscripcion-detail-modal-content">
+            <!-- El contenido se cargará aquí vía AJAX -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Información del curso -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Nombre</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="far fa-id-card"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ inscripcion.nombre_ins}} {{ inscripcion.apellidos_ins }}"  disabled>
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} <div class="col-sm-6">
+                            <div class="form-group">
+                            <p><strong>Apellidos:</strong> {{ inscripcion.apellidos_ins }}</p>
+                            </div>
+                        </div> {% endcomment %}
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Telefono</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ inscripcion.telefono }}"  disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Correo</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ inscripcion.correo }}"  disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Profesión</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="fas fa-user-graduate"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ inscripcion.profesion }}"  disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Grado Academico</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ inscripcion.grado_academico }}"  disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Curso</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="fas fa-book"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ inscripcion.curso_id  }}"  disabled>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Consulta</label> 
+                                <textarea class="form-control" disabled>{{ inscripcion.consulta }}</textarea>
+                            </div>
+                        </div>
+                          
+                       
+                    </div>
+                    <!-- Otros campos -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Abre el modal y carga el contenido vía AJAX
+        $('.open-modal').on('click', function() {
+            var url = $(this).data('url');            
+            console.log('id'+ ' '+url);
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(data) {
+                    $('#inscripcion-detail-modal-content').html($(data).find('#inscripcion-detail-modal-content').html());
+                    $('#inscripcion-detail-modal').modal('show');
+                    console.log('datos'+ ' '+data);
+                },
+                error: function() {
+                    alert('Error al cargar los detalles del curso.');
+                }
+                
+            });
+        });
+    
+        // Cierra el modal
+        $('#inscripcion-detail-modal').on('hidden.bs.modal', function () {
+            $('#inscripcion-detail-modal-content').empty();
+        });
+    });
+    
+  </script>
+
+ 

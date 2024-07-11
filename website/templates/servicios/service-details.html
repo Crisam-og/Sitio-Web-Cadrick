@@ -1,0 +1,69 @@
+{% extends "sitioweb/index.html" %}
+{% block title %}Servicios Detalle{% endblock  %}
+{% load static %}
+{% block content %}
+
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <div class="breadcrumbs d-flex align-items-center" style="background-image: url({% static "lib/website-v1/assets/img/breadcrumbs-bg.jpg" %});">
+    <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+
+      <h2>Detalle de Servicio</h2>
+      <ol>
+        <li><a href="{% url "servicios-list" %}">Servicios</a></li>
+        <li>Detalle de Servicio</li>
+      </ol>
+
+    </div>
+  </div><!-- End Breadcrumbs -->
+
+  <!-- ======= Service Details Section ======= -->
+  <section id="service-details" class="service-details">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="row gy-4">
+
+        <div class="col-lg-4">
+          <div class="services-list">
+              <a href="#" class="active">{{ service.nombre_servicio}}</a>
+              <ul>
+                  {% for related_service in related_services %}
+                      <li><a href="{% url 'detail-service' related_service.id %}">{{ related_service.nombre_servicio }}</a></li>
+                  {% endfor %}
+              </ul>
+          </div>
+      </div>
+
+        <div class="col-lg-8">
+          <div class="service-details-content">
+          <div class="swiper-container service-details-swiper">
+            <div class="swiper-wrapper">
+              {% for i in existing_images %}
+                <div class="swiper-slide">
+                  <img src="{{ i.get_image }}" alt="" class="img-fluid services-img">
+                </div>
+              {% endfor %}
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Navigation -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+          
+          <h3>{{ service.nombre_servicio }} </h3>
+          <p>
+            {{  service.descripcion_servicio | safe }}
+          </p>
+
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </section><!-- End Service Details Section -->
+
+</main><!-- End #main -->
+
+  {% endblock %}

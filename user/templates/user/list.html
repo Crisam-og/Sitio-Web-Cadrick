@@ -1,0 +1,43 @@
+{% extends 'administrador/list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 20%;">Nombre</th>
+        <th scope="col" style="width: 20%;">Apellidos</th>
+        <th scope="col" style="width: 20%;">Username</th>
+        <th scope="col" style="width: 20%;">Fecha de Registro</th>
+        <th scope="col" style="width: 20%;">Imagen</th>
+        <th scope="col" style="width: 20%;">Permisos</th>
+        <th scope="col" style="width: 10%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for a in object_list %}
+    <tr>
+        <td> {{ a.first_name }} </td>
+        <td> {{ a.last_name }} </td>
+        <td> {{ a.username }} </td>  
+        <td> {{ a.date_joined }} </td>  
+        <td class="text-center"> 
+            {% if a.get_image %}
+        <img src="{{ a.get_image }}" class="img-thumbnail" alt="Imagen del servicio" height="80" width="80">
+            {% else %}
+                <i class="fas fa-eye-slash"></i>
+            {% endif %}
+        </td>  
+        <td> 
+            {% for g in a.groups.all %}
+            <span class="badge badge-success"> {{ g.name }} </span>
+            {% endfor %} 
+        </td>   
+       
+
+        <td>
+            <a href="{% url 'user_update' a.id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'user_delete' a.id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>   
+    </tr>
+    {% endfor %}
+{% endblock %}

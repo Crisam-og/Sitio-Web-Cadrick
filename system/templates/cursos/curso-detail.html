@@ -1,0 +1,203 @@
+{% load filters %}
+<div class="modal fade" id="curso-detail-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="curso-detail-modal-content">
+            <!-- El contenido se cargará aquí vía AJAX -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Información del curso -->
+                    <div class="row justify-content-center text-center">
+                        <div class="col-12">
+                            <img class="mb-3 img-fluid" src="{{ curso.get_image }}" alt="Imagen del curso" class="img-thumbnail" style="max-width: 400px; height: auto;">
+                        </div>
+                        <div class="col-12">
+                            <h4>{{ curso.nombre_curso }}</h4>
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" disabled>{{ curso.descripcion | safe }}</textarea>
+                           
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group" style="padding-top:10px;">
+                                
+                                <label>Inicio</label> 
+
+                                    <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ curso.fecha_de_inicio }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" inputmode="numeric" disabled>
+                                    </div>
+                                    
+                                    
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="padding-top:10px;">
+                                <label>Horario</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ curso.horario }}"  disabled>
+                                </div>
+                           
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Duración del Curso</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="fas fa-compass"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ curso.duracion }}"  disabled>
+                                </div>
+                               
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Costo</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="fas fa-money-check-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ curso.costo }}"  disabled>
+                                </div>
+                               
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Capacitador</label> 
+                                <div class="input-group" bis_skin_checked="1">
+                                    <div class="input-group-prepend" bis_skin_checked="1">
+                                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{ curso.capacitador_id }}"  disabled>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Temario</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-download"></i></span>
+                                    </div>
+                                    <a href="{{ curso.get_document }}" target="_blank" class="form-control">
+                                        {{ curso.get_document_name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+                    <!-- Otros campos -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Abre el modal y carga el contenido vía AJAX
+        $('.open-modal').on('click', function() {
+            var url = $(this).data('url');            
+            console.log('id'+ ' '+url);
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(data) {
+                    $('#curso-detail-modal-content').html($(data).find('#curso-detail-modal-content').html());
+                    $('#curso-detail-modal').modal('show');
+                    console.log('datos'+ ' '+data);
+                },
+                error: function() {
+                    alert('Error al cargar los detalles del curso.');
+                }
+                
+            });
+        });
+    
+        // Cierra el modal
+        $('#curso-detail-modal').on('hidden.bs.modal', function () {
+            $('#curso-detail-modal-content').empty();
+        });
+    });
+
+    $(function(){
+        $('#data').DataTable({
+            responsive: true,
+            autoWidth: false,
+        });
+    });
+    
+  </script>
+<style>
+    #curso-detail-modal-content .modal-body {
+        padding: 20px;
+    }
+    
+    #curso-detail-modal-content .modal-header {
+        border-bottom: none;
+    }
+    
+    #curso-detail-modal-content .modal-footer {
+        border-top: none;
+        justify-content: center;
+    }
+    
+    #curso-detail-modal-content img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    #curso-detail-modal-content h4 {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+    
+    #curso-detail-modal-content p {
+        margin-top: 10px;
+        font-size: 1rem;
+        text-align: justify;
+    }
+    
+    #curso-detail-modal-content .row.mt-4 .col-12 {
+        margin-bottom: 10px;
+    }
+    
+    #curso-detail-modal-content .row.mt-4 .text-left {
+        text-align: left;
+    }
+    
+    #curso-detail-modal-content .row.mt-4 .text-right {
+        text-align: right;
+    }
+    
+</style>
+
+ 
+        
+       

@@ -1,0 +1,87 @@
+{% extends "sitioweb/index.html" %}
+{% block title %}Cursos{% endblock  %}
+{% load static %}
+{% block content %}
+
+  <main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url( {% static "lib/website-v1/assets/img/breadcrumbs-bg.jpg" %});">
+      <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+
+        <h2>Cursos</h2>
+        <ol>
+          <li><a href="{% url "index" %}">Inicio</a></li>
+          <li>Cursos</li>
+        </ol>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4 posts-list">
+          
+          {% for c in page_obj %}
+            {% if c.estado == True %}
+            <div class="col-xl-4 col-md-6">
+              <div class="post-item position-relative h-100">
+
+                <div class="post-img position-relative overflow-hidden">
+                  <img src="{{ c.get_image }}" class="img-fluid" alt="">
+                  <span class="post-date"> {{ c.fecha_de_inicio }}</span>
+                </div>
+
+                <div class="post-content d-flex flex-column">
+
+                  <h3 class="post-title">{{ c.nombre_curso }}</h3>
+
+                  <div class="meta d-flex align-items-center">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-person-video3"></i> <span class="ps-2">{{ c.capacitador_id }}</span>
+                    </div>
+                    <span class="px-3 text-black-50">/</span>
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-currency-dollar"></i> <span class="ps-2">{{ c.costo }}</span>
+                    </div>
+                  </div>
+
+                  <hr>
+
+                  <a href="{% url 'detail-curso' c.id %}" class="readmore stretched-link"><span>Mas Información</span><i class="bi bi-arrow-right"></i></a>
+
+                </div>
+
+              </div>
+            </div><!-- End post list item -->
+            {% endif %}
+            {% endfor %}
+          
+        </div><!-- End blog posts list -->
+
+        <div class="blog-pagination">
+          <ul class="justify-content-center">
+              {% if page_obj.has_previous %}
+                  <li><a href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+              {% endif %}
+
+              {% for num in page_obj.paginator.page_range %}
+                  {% if page_obj.number == num %}
+                      <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                  {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                      <li><a href="?page={{ num }}">{{ num }}</a></li>
+                  {% endif %}
+              {% endfor %}
+
+              {% if page_obj.has_next %}
+                  <li><a href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+              {% endif %}
+          </ul>
+      </div><!-- End blog pagination -->
+
+      </div>
+    </section><!-- End Blog Section -->
+
+  </main><!-- End #main -->
+{% endblock %}

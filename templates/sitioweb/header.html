@@ -1,0 +1,37 @@
+{% load static %}
+<!-- ======= Header ======= -->
+ <header id="header" class="header d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="{% url "index" %}" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <img src="{% static "lib/website-v1/assets/img/logo_cadrick_sf.gif" %}" alt=""> 
+        <h1> {{ comp.nombre_compania }} <span>.</span></h1>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      
+      <nav id="navbar" class="navbar">
+        {% comment %} {% url 'index' %}
+        {% url 'nosotros' %}
+        {% url 'servicios-list' %}
+        {% url 'curso-list' %}
+        {% url 'contactanos' %} {% endcomment %}
+        <ul>
+          {% url 'index' as index_url %}
+          {% url 'nosotros' as nosotros_url %}
+          {% url 'servicios-list' as servicios_url %}
+          {% url 'curso-list' as curso_url %}
+          {% url 'contactanos' as contactanos_url %}
+        
+        <li><a href="{{ index_url }}" class="{% if request.path == index_url %}active{% endif %}">Inicio</a></li>
+        <li><a href="{{ nosotros_url }}" class="{% if request.path == nosotros_url %}active{% endif %}">Nosotros</a></li>
+        <li><a href="{{ servicios_url }}" class="{% if request.path == servicios_url %}active{% endif %}">Servicios</a></li>
+        <li><a href="{{ curso_url }}" class="{% if request.path == curso_url %}active{% endif %}">Cursos</a></li>
+        <li><a href="{{ contactanos_url }}" class="{% if request.path == contactanos_url %}active{% endif %}">Contáctanos</a></li>
+      </nav><!-- .navbar -->
+      
+
+    </div>
+  </header><!-- End Header -->

@@ -1,0 +1,210 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #000000">
+    <!-- Brand Logo -->
+    <a href="{% url 'home' %}" class="brand-link">
+      <img src="{% static 'lib/adminlte-3.0.4/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light"> Admin Cadrick</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{ request.user.get_image }}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{ request.user.first_name }}</a>
+        </div>
+      </div>
+
+      
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+               <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-folder-open"></i>
+                  <p>
+                    Mantenimiento
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                
+              <li class="nav-item">
+                
+                <a href="{% url "compania_update" %}" class="nav-link">
+                 
+                  <i class='nav-icon fas fa-tools'></i>
+                  <span> 
+                  </span>
+                  <p>Configuraciones</p>
+                </a>
+              </li> 
+
+              <li class="nav-item">
+                <a href="{% url 'galeria_update' %}" class="nav-link">
+                  <i class='nav-icon fas fa-images'></i>
+                  <span> 
+                    
+                  </span>
+                  <p>Textos y Imagenes</p>
+                </a>
+              </li> 
+              
+              <li class="nav-item">
+                <a href="{% url 'clientes_list' %}" class="nav-link">
+                  <i class='nav-icon fas fa-user-friends'></i>
+                  <span> 
+                  </span>
+                  <p>Clientes</p>
+                </a>
+              </li> 
+
+              <li class="nav-item">
+                <a href="{% url 'equipo_list' %}" class="nav-link">
+                  <i class='nav-icon fas fa-users'></i>
+                  <span> 
+                  </span>
+                  <p>Equipo</p>
+                </a>
+              </li> 
+
+              <li class="nav-item">
+                <a href="{% url 'tservicios_list' %}" class="nav-link">
+                  <i class='nav-icon fas fa-clipboard-list'></i>
+                  <span> 
+                  </span>
+                  <p>Categoria de Servicio</p>
+                </a>
+              </li> 
+
+              <li class="nav-item">
+                <a href="{% url 'servicios_list' %}" class="nav-link">
+                  <i class='nav-icon far fa-handshake'></i>
+                  <span> 
+                  </span>
+                  <p>Servicios</p>
+                </a>
+              </li> 
+
+              <li class="nav-item">
+                <a href="{% url "proyecto_list" %}" class="nav-link">
+                  <i class='nav-icon fas fa-gopuram'></i>
+                  <span> 
+                  </span>
+                  <p>Proyectos</p>
+                </a>
+              </li> 
+              
+              
+              
+            </ul>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-user-graduate"></i>
+                <p>
+                  Capacitaciones
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+              <a href="{% url 'capacitador_list' %}" class="nav-link">
+                <i class='nav-icon fas fa-user-tie'></i>
+                <span> 
+                  
+                </span>
+                <p>Capacitadores</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'cursos_list' %}" class="nav-link">
+                <i class='nav-icon fas fa-book'></i>
+                <span> 
+                </span>
+                <p>Cursos</p>
+              </a>
+            </li> 
+
+            <li class="nav-item">
+              <a href="{% url "inscripciones_list" %}" class="nav-link" id="inscripciones-link">
+                <i class='nav-icon far fa-address-card'></i>
+                <span> 
+                </span>
+                <p>Inscripciones
+                  {% comment %} <span id="inscripciones-badge" class="badge badge-danger right" style="display: none;">0</span> {% endcomment %}
+                </p>
+                
+              </a>
+            </li>
+          </ul>
+          {% if perms.system.view_user %}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-cog"></i>
+              <p>
+                Usuarios
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+            <a href="{% url 'user_list' %}" class="nav-link">
+              <i class='nav-icon fas fa-user-alt'></i>
+              <span> 
+                
+              </span>
+              <p>Usuarios</p>
+            </a>
+          </li>
+        </ul>
+          </li>
+          {% endif %}
+        </nav>
+    </div> 
+    <!-- /.sidebar -->
+  </aside>
+  {% block js %}
+  {% comment %} <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function updateInscripcionesCount() {
+        fetch("{% url 'inscripciones_count' %}")
+          .then(response => response.json())
+          .then(data => {
+            const currentCount = data.count;
+            const lastVisitedCount = localStorage.getItem('lastVisitedInscripcionesCount') || 0;
+    
+            if (currentCount > lastVisitedCount) {
+              document.getElementById('inscripciones-badge').textContent = currentCount - lastVisitedCount;
+              document.getElementById('inscripciones-badge').style.display = 'inline';
+            } else {
+              document.getElementById('inscripciones-badge').style.display = 'none';
+            }
+    
+            localStorage.setItem('currentInscripcionesCount', currentCount);
+          })
+          .catch(error => console.error('Error fetching inscripciones count:', error));
+      }
+    
+      // Update the count initially
+      updateInscripcionesCount();
+    
+      // Optionally, you can set an interval to periodically update the count
+      setInterval(updateInscripcionesCount, 15000); // Update every 60 seconds
+    
+      // Hide the badge and update the last visited count when clicking on Inscripciones link
+      document.getElementById('inscripciones-link').addEventListener('click', function() {
+        document.getElementById('inscripciones-badge').style.display = 'none';
+        const currentCount = localStorage.getItem('currentInscripcionesCount') || 0;
+        localStorage.setItem('lastVisitedInscripcionesCount', currentCount);
+      });
+    });
+    </script> {% endcomment %}
+    {% endblock %}

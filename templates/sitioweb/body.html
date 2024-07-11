@@ -1,0 +1,21 @@
+{% extends 'sitioweb/index.html' %}
+
+{% block body %}
+<body>
+  {% block content %}
+
+    
+    {% include 'sitioweb/header.html' %}
+  
+    
+
+    {% include "sitioweb/main.html" %}
+
+    {% endblock  %}
+  
+  
+    {% include "sitioweb/footer.html" %}
+  
+    
+</body>
+{% endblock %}

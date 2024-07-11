@@ -1,0 +1,32 @@
+<!-- ======= Constructions Section ======= -->
+<section id="constructions" class="constructions">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-header">
+      <h2> {{ titleProyectos }} </h2>
+      <p> {{ publicidad.sub_section_proyectos }} </p>
+    </div>
+    
+    <div class="swiper mySwiper swiper-proyectos">
+      <div class="swiper-wrapper">
+        {% for p in proyec %}
+        <div class="swiper-slide">
+          <div class="proyectosBox">
+              <img src="{{ p.get_first_image }}" class="proyec img-thumbnail">
+              <div class="content">
+                  <h3>{{ p.nombre_proyecto }}</h3> 
+                  <hr>
+                  <p style="font-family: new times roman;" class="text-center"><i class="bi bi-calendar-week" style="color:#fe3b00;"></i> {{ p.fecha_de_proyecto }}</p>
+              </div>
+               
+              <hr>
+              <a href="{% url "detail-proyecto" p.id %}"><span>Mas Información</span></a> 
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+  </div>
+</section><!-- End Constructions Section -->

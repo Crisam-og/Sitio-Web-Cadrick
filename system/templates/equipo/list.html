@@ -1,0 +1,32 @@
+{% extends 'administrador/list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 20%;">Nombre</th>
+        <th scope="col" style="width: 20%;">Cargo</th>
+        <th scope="col" style="width: 20%;">Descripción</th>
+        <th scope="col" style="width: 20%;">Imagen</th>
+        <th scope="col" style="width: 10%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for a in object_list %}
+    <tr>
+        <td> {{ a.nombre_equipo }} </td>
+        <td> {{ a.cargo }} </td>
+        <td> {{ a.descripcion }} </td>
+        <td class="text-center"> 
+            {% if a.get_image %}
+            <img src="{{ a.get_image }}" class="img-thumbnail" alt="Imagen del servicio" height="100" width="100">
+                {% else %}
+                    <i class="fas fa-eye-slash fa-lg"></i>
+                {% endif %} </td>  
+        <td>
+            <a href="{% url 'equipo_update' a.id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'equipo_delete' a.id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>   
+    </tr>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "sitioweb/index.html" %}
+{% block title %}Servicios Detalle{% endblock  %}
+{% load static %}
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url({% static "lib/website-v1/assets/img/breadcrumbs-bg.jpg" %});">
+      <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+
+        <h2>Detalle de Proyecto</h2>
+        <ol>
+          <li><a href="{% url "index" %}">Inicio</a></li>
+          <li>Detalle de Proyecto</li>
+        </ol>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Projet Details Section ======= -->
+    <section id="project-details" class="project-details">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="position-relative h-100">
+          <div class="slides-1 portfolio-details-slider swiper">
+
+            <div class="swiper-wrapper align-items-center">
+              {% for s in existing_images %}
+              <div class="swiper-slide">
+                <img src="{{ s.get_image }}" alt="">
+              </div>
+              {% endfor %}
+            </div>
+
+            <div class="swiper-pagination"></div>
+            
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+        </div>
+
+        <div class="row justify-content-between gy-4 mt-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-description">
+              <h2>{{ proyecto.nombre_proyecto }} </h2>
+              <p style="text-align:justify;">
+                {{ proyecto.descripcion_proyecto | safe }}
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="portfolio-info">
+              <h3>Información del Servicio</h3>
+              <ul>
+                <li><strong>Fecha del Proyecto</strong> <span> {{ proyecto.fecha_de_proyecto }} </span></li>
+                <li><strong>Cliente</strong> <span> {{ proyecto.cliente_id }} </span></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Projet Details Section -->
+
+  </main><!-- End #main -->
+
+  {% endblock %}

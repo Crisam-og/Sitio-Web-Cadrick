@@ -1,0 +1,75 @@
+{% extends 'administrador/list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 15%;">Nombre</th>
+       <!-- <th scope="col" style="width: 15%;">Descipción</th> -->
+       <!--<th scope="col" style="width: 10%;">Inicio</th>-->
+       <!-- <th scope="col" style="width: 10%;">Horario</th>-->
+        <!--<th scope="col" style="width: 10%;">Duración</th>-->
+        <th scope="col" style="width: 10%;">Costo</th>
+        <th scope="col" style="width: 15%;">Capacitador</th>
+        {% comment %} <th scope="col" style="width: 10%;" class="text-center">Temario</th> {% endcomment %}
+        <th scope="col" style="width: 10%;">Imagen</th>
+        <th scope="col" style="width: 10%;">Estado</th>
+        <th scope="col" style="width: 10%;">Opciones</th>
+
+        
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for a in object_list %}
+    <tr>
+        <td> {{ a.nombre_curso }} </td>
+        <!-- <td> {{ a.descripcion }} </td>-->
+        <!-- <td> {{ a.fechaDeInicio }} </td>-->
+        <!-- <td> {{ a.horario }} </td>-->
+        <!-- <td> {{ a.duracion }} </td>-->
+        <td> S/. {{ a.costo }} </td>
+        <td> {{ a.capacitador_id }} </td>
+        <!-- <td> {{ a.temario }} </td> -->
+        <!-- <td> {{ a.descripcion | safe }} </td> -->
+        {% comment %} <td class="text-center">
+            {% if a.temario %}
+                <a href="{{ a.get_document }}" target="_blank"><i class="fas fa-file-alt fa-2x"></i></a>
+            {% else %}
+            <i class="fas fa-eye-slash fa-2x"></i>
+                
+            {% endif %}
+        </td> {% endcomment %}
+
+        <td class="text-center"> 
+            {% if a.get_image %}
+                <img src="{{ a.get_image }}" class="img-thumbnail" alt="Imagen del servicio" height="100" width="150">
+            {% else %}
+                <i class="fas fa-eye-slash fa-lg"></i>
+            {% endif %}
+        </td>  
+        <td>
+            {% if a.estado == True %}
+                <span class="badge badge-success">Activo</span>
+            {% else %}
+                <span class="badge badge-danger">Inactivo</span>
+            {% endif %}
+        </td>
+        
+
+
+        <td>
+            <a href="{% url 'cursos_update' a.id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'cursos_delete' a.id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+            <button class="open-modal btn btn-primary btn-xs" data-id="{{ a.id }}" data-url="{% url 'cursos_detail' a.id %}"><i class="fas fa-eye"></i></button>
+
+
+        </td>
+    </tr>
+    {% endfor %}
+
+    {% include "cursos/curso-detail.html" %}
+
+{% endblock %}
+{% block js %}
+
+  {% endblock  %}
+ 

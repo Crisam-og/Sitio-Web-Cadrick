@@ -1,0 +1,117 @@
+{% extends "sitioweb/index.html" %}
+{% block title %}Nosotros{% endblock  %}
+{% load static %}
+{% load filters %}
+{% block content %}
+
+  <main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url( {% static "lib/website-v1/assets/img/breadcrumbs-bg.jpg" %});">
+      <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+
+        <h2>Nosotros</h2>
+        <ol>
+          <li><a href="{{ index }}">Inicio</a></li>
+          <li>Nosotros</li>
+        </ol>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row position-relative">
+          
+          <div class="col-lg-7 about-img" style="background-image: url({{ publicidad.get_image_mision }});"></div>
+          
+          <div class="col-lg-7">
+            <h3> {{ titleOne }} </h3>
+           
+            <div class="our-story">
+              <p style="text-align: justify;"> {{ comp.historia | safe }} </p>
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+    </section>
+    <!-- End About Section -->
+   
+
+    <!-- ======= Alt Services Section ======= -->
+    <section id="alt-services" class="alt-services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-around gy-4">
+         
+          <div class="col-lg-6 img-bg" style="background-image: url({{ publicidad.get_image_vision }});" data-aos="zoom-in" data-aos-delay="100"></div>
+          
+
+          <div class="col-lg-5 d-flex flex-column justify-content-center">
+            <h3>{{ titleTwo }}</h3>
+           
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="100">
+              <i class="bi bi-flag flex-shrink-0"></i>
+              <div>
+                <h4><a class="stretched-link">Misión</a></h4>
+                <p style="text-align: justify;"> {{ comp.mision }} </p>
+              </div>
+            </div><!-- End Icon Box -->
+
+            <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="100">
+              <i class="bi bi-graph-up flex-shrink-0"></i>
+              <div>
+                <h4><a class="stretched-link">Visión</a></h4>
+                <p style="text-align: justify;"> {{ comp.vision }} </p>
+              </div>
+            </div><!-- End Icon Box -->
+        
+            
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Alt Services Section -->
+
+  
+
+    <!-- ======= Our Team Section ======= -->
+    <section id="team" class="team">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Nuestro Equipo</h2>
+          <p>{{ publicidad.sub_section_equipo }}</p>
+        </div>
+
+        <div class="row gy-5">
+          {% for t in team %}
+          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
+            <div class="member-img">
+              <img src="{{ t.get_image }}" class="img-fluid" alt="">
+              <div class="social">
+                <a href="#"><i class="bi bi-twitter"></i></a>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info text-center">
+              <h4> {{ t.nombre_equipo }} {{ t.apellido_equipo }} </h4>
+              <span> {{ t.cargo }} </span>
+              <p> {{ t.descripcion }} </p>
+            </div>   
+          </div><!-- End Team Member -->
+          {% endfor %}
+        </div>  
+      </div>
+    </section><!-- End Our Team Section -->
+
+  </main><!-- End #main -->
+  {% endblock  %}
+
+  

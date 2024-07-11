@@ -1,0 +1,37 @@
+{% extends 'administrador/list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 10%;">Nombre</th>
+        <th scope="col" style="width: 10%;">Apellidos</th>
+        <th scope="col" style="width: 15%;">Grado Academico</th>
+        <th scope="col" style="width: 10%;">Correo</th>
+       <!-- <th scope="col" style="width: 15%;">Descipción</th> -->
+        <th scope="col" style="width: 10%;">Imagen</th>
+        <th scope="col" style="width: 10%;">Opciones</th>
+
+        
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for a in object_list %}
+    <tr>
+        <td> {{ a.nombre_capacitador }} </td>
+        <td> {{ a.apellidos_capacitador }} </td>
+        <td> {{ a.grado_academico }} </td>
+       
+        <td> {{ a.correo }} </td>
+        <!-- <td> {{ a.descripcion | safe }} </td> -->
+        <td class="text-center"> <img src="{{ a.get_image }}" class="img-thumbnail" alt="Imagen del servicio" height="100" width="100"> </td>  
+        
+
+
+        <td>
+            <a href="{% url 'capacitador_update' a.id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'capacitador_delete' a.id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}

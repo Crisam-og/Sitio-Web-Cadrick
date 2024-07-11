@@ -1,0 +1,101 @@
+{% extends "sitioweb/index.html" %}
+{% block title %}Inscripciones{% endblock  %}
+{% load static %}
+{% block content %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url({% static "lib/website-v1/assets/img/breadcrumbs-bg.jpg" %});">
+      <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+
+        <h2>Inscripciones</h2>
+        <ol>
+          <li><a href="{% url "index" %}">Inicio</a></li>
+          <li>Inscripciones</li>
+        </ol>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+<div class="reply-form">
+    <h4>Inscribete</h4>
+    <p>Su dirección de correo electrónico no será publicada. Los campos obligatorios están marcados * </p>
+    <form method="post" action="." id="inscripcion-form">
+
+        {% csrf_token %}
+        <input type="hidden" name="action" value="{{ action }}">
+      <div class="row">
+        <div class="col-md-6 form-group">
+            <span class="title"> Nombre <span class="aterisk">*</span> </span>
+            {{ form.nombre_ins }}
+        </div>
+        <div class="col-md-6 form-group">
+            <span class="title"> Apellidos <span class="aterisk">*</span> </span>
+
+            {{ form.apellidos_ins }}
+        </div>
+        <div class="col-md-6 form-group">
+            <span class="title"> Telefono <span class="aterisk">*</span> </span>
+            {{ form.telefono }}
+        </div>
+        <div class="col-md-6 form-group">
+            <span class="title"> Correo <span class="aterisk">*</span> </span>
+            {{ form.correo }}
+        </div>
+        <div class="col-md-6 form-group">
+            <span class="title"> Profesión (Opcional) </span>
+            {{ form.profesion }}
+        </div>
+        <div class="col-md-6 form-group">
+            <span class="title"> Seleccione su grado academico (Opcional) </span>
+            {{ form.grado_academico }}
+        </div>
+        <div class="col-md-6 form-group">
+            <span style="color: #fff; font-size: 14px; margin-bottom: 2px;"> Seleccione un curso <span class="aterisk">*</span></span>
+            {{ form.curso_id  }}
+        </div>
+        
+      </div>
+      <div class="row">
+        <div class="col form-group">
+            <span class="title"> Consulta <span class="aterisk">*</span> </span>
+            {{ form.consulta }}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+
+    </form>
+
+  </div>
+</main>
+
+    <script> 
+
+
+
+          $('form').on('submit', function(e){
+            e.preventDefault();
+            var parameters = new FormData(this);
+            
+            submit_with_ajax(window.location.pathname, 'Notificación',
+            '¿Haz llendao el formulario correctamete?', parameters, function (){
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: 'Sus datos se enviaron correctamente.',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#3085d6',
+                    preConfirm: ()=>{
+                        location.href = '{{ success }}';
+                    },
+                  
+                  allowOutsideClick: () => false,
+                  allowEscapeKey: () => false,
+                });
+            });
+         });
+
+         
+    </script>
+
+
+{% endblock %}
